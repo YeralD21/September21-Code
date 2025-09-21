@@ -1,0 +1,549 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    overflow: hidden;
+    height: 100vh;
+    background: #FF8C00;
+    position: relative;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Flores cayendo */
+.falling-flowers {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.falling-flower {
+    position: absolute;
+    color: #FFD700;
+    font-size: 20px;
+    animation: fall linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Flor central */
+.central-flower {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 30px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Girasol gigante responsive - contenedor flexible */
+.flower {
+    position: relative;
+    width: min(80vw, 80vh, 600px);
+    height: min(80vw, 80vh, 600px);
+    margin: 0 auto;
+    /* Centrar el contenedor de la flor */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Asegurar que sea el elemento dominante */
+    z-index: 2;
+    /* Asegurar que siempre se vea completo */
+    min-width: 200px;
+    min-height: 200px;
+}
+
+.petal {
+    position: absolute;
+    width: 30%;
+    height: 50%;
+    max-width: 120px;
+    max-height: 200px;
+    background: linear-gradient(180deg, #FFD700 0%, #FFA500 30%, #FFD700 70%, #FFF8DC 100%);
+    border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+    transform-origin: center center;
+    box-shadow: 
+        0 8px 25px rgba(255, 215, 0, 0.5),
+        inset 0 4px 10px rgba(255, 255, 255, 0.4),
+        inset 0 -4px 10px rgba(255, 140, 0, 0.3);
+    border: 2px solid rgba(255, 215, 0, 0.7);
+    /* Posicionamiento polar usando rotate y translate */
+    top: 50%;
+    left: 50%;
+    margin-top: -25%;
+    margin-left: -15%;
+}
+
+/* Posicionamiento polar preciso - cada pétalo rotado 45° */
+.petal-1 { transform: rotate(0deg) translateY(-30%); }
+.petal-2 { transform: rotate(45deg) translateY(-30%); }
+.petal-3 { transform: rotate(90deg) translateY(-30%); }
+.petal-4 { transform: rotate(135deg) translateY(-30%); }
+.petal-5 { transform: rotate(180deg) translateY(-30%); }
+.petal-6 { transform: rotate(225deg) translateY(-30%); }
+.petal-7 { transform: rotate(270deg) translateY(-30%); }
+.petal-8 { transform: rotate(315deg) translateY(-30%); }
+
+/* Centro gris oscuro con degradado radial menos intenso */
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25%;
+    height: 25%;
+    max-width: 100px;
+    max-height: 100px;
+    min-width: 30px;
+    min-height: 30px;
+    background: radial-gradient(circle at 40% 40%, #666666 0%, #444444 40%, #333333 80%, #222222 100%);
+    border-radius: 50%;
+    box-shadow: 
+        0 8px 30px rgba(0, 0, 0, 0.4),
+        inset 0 4px 15px rgba(255, 255, 255, 0.1),
+        inset 0 -4px 15px rgba(0, 0, 0, 0.3);
+    border: 4px solid #333333;
+    z-index: 1; /* Debajo de los pétalos */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Mensaje inicial - ajustado para girasol grande */
+.initial-message {
+    position: relative;
+    z-index: 4;
+    text-align: center;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeInUp 2s ease-out 1s forwards;
+    transform: translateY(-25px);
+}
+
+.initial-message h1 {
+    font-size: 4rem;
+    color: #8B4513;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+    font-weight: bold;
+    letter-spacing: 3px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Frases románticas - ajustadas para girasol grande */
+.romantic-phrases {
+    position: relative;
+    z-index: 4;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 30px;
+    transform: translateY(-45px);
+}
+
+.phrase-container {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.phrase {
+    font-size: 1.6rem;
+    color: #8B4513;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1.7;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeInPhrase 0.5s ease-out forwards;
+}
+
+@keyframes fadeInPhrase {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.4rem;
+    background-color: #8B4513;
+    animation: blink 1s infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+/* Mensaje final */
+.final-message {
+    position: relative;
+    z-index: 4;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.8) translateY(-20px);
+    transition: all 1s ease-out;
+}
+
+.final-message.show {
+    opacity: 1;
+    transform: scale(1) translateY(-20px);
+}
+
+.final-message h2 {
+    font-size: 2.5rem;
+    color: #8B4513;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    letter-spacing: 1px;
+    animation: finalPulse 2s ease-in-out infinite;
+}
+
+@keyframes finalPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Corazones flotantes */
+.floating-hearts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.heart {
+    position: absolute;
+    font-size: 30px;
+    color: #FF69B4;
+    animation: floatHeart 6s ease-in-out infinite;
+    opacity: 0.8;
+}
+
+.heart:nth-child(odd) {
+    color: #FF1493;
+}
+
+.heart:nth-child(3n) {
+    color: #FFD700;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Audio oculto - se reproduce automáticamente */
+#backgroundMusic {
+    display: none;
+}
+
+/* Pétalos amarillos cayendo - lluvia de pétalos */
+.falling-petals {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.falling-petal {
+    position: absolute;
+    width: 12px;
+    height: 20px;
+    background: linear-gradient(180deg, #FFD700 0%, #FFA500 30%, #FFD700 70%, #FFF8DC 100%);
+    border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+    box-shadow: 
+        0 2px 8px rgba(255, 215, 0, 0.4),
+        inset 0 1px 3px rgba(255, 255, 255, 0.3),
+        inset 0 -1px 3px rgba(255, 140, 0, 0.2);
+    border: 1px solid rgba(255, 215, 0, 0.6);
+    animation: fallPetals linear infinite;
+}
+
+/* Variaciones de tamaño para pétalos */
+.falling-petal.small {
+    width: 8px;
+    height: 14px;
+    transform: scale(0.7);
+}
+
+.falling-petal.medium {
+    width: 12px;
+    height: 20px;
+    transform: scale(1);
+}
+
+.falling-petal.large {
+    width: 16px;
+    height: 26px;
+    transform: scale(1.3);
+}
+
+/* Animación de caída con rotación natural */
+@keyframes fallPetals {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0.8;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Variaciones de opacidad para efecto de profundidad */
+.falling-petal.distant {
+    opacity: 0.4;
+}
+
+.falling-petal.near {
+    opacity: 0.8;
+}
+
+.falling-petal.close {
+    opacity: 1;
+}
+
+/* Flor decorativa rosada en esquina superior izquierda - 5 pétalos */
+.decorative-corner-flower {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 35px;
+    height: 35px;
+    z-index: 5;
+    animation: gentleFloat 4s ease-in-out infinite;
+    /* Centrar el contenedor */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.decorative-corner-flower .petal {
+    position: absolute;
+    width: 10px;
+    height: 15px;
+    background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 50%, #FF1493 100%);
+    border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+    transform-origin: center center;
+    box-shadow: 
+        0 2px 8px rgba(255, 105, 180, 0.4),
+        inset 0 1px 3px rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 182, 193, 0.6);
+    /* Posicionamiento polar para 5 pétalos (72° cada uno) */
+    top: 50%;
+    left: 50%;
+    margin-top: -7.5px;
+    margin-left: -5px;
+}
+
+/* Posicionamiento polar preciso - cada pétalo rotado 72° */
+.decorative-corner-flower .petal-1 { transform: rotate(0deg) translateY(-12px); }
+.decorative-corner-flower .petal-2 { transform: rotate(72deg) translateY(-12px); }
+.decorative-corner-flower .petal-3 { transform: rotate(144deg) translateY(-12px); }
+.decorative-corner-flower .petal-4 { transform: rotate(216deg) translateY(-12px); }
+.decorative-corner-flower .petal-5 { transform: rotate(288deg) translateY(-12px); }
+
+.decorative-corner-flower .center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, #FFFFFF 0%, #F0F0F0 100%);
+    border-radius: 50%;
+    box-shadow: 
+        0 2px 6px rgba(255, 255, 255, 0.8),
+        inset 0 1px 2px rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    z-index: 6;
+}
+
+@keyframes gentleFloat {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(-5px) rotate(2deg);
+        opacity: 1;
+    }
+}
+
+/* Elementos decorativos eliminados para diseño minimalista */
+
+/* Responsive para girasol de gran escala */
+@media (max-width: 768px) {
+    .initial-message {
+        transform: translateY(-15px);
+        margin-bottom: 15px;
+    }
+    
+    .romantic-phrases {
+        transform: translateY(-25px);
+        padding: 0 20px;
+    }
+    
+    .final-message {
+        transform: scale(0.8) translateY(-10px);
+    }
+    
+    .final-message.show {
+        transform: scale(1) translateY(-10px);
+    }
+    
+    .initial-message h1 {
+        font-size: 2.5rem;
+    }
+    
+    .phrase {
+        font-size: 1.2rem;
+    }
+    
+    .final-message h2 {
+        font-size: 2rem;
+    }
+    
+    .flower {
+        width: min(70vw, 70vh, 400px);
+        height: min(70vw, 70vh, 400px);
+        min-width: 150px;
+        min-height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .initial-message {
+        transform: translateY(-10px);
+        margin-bottom: 10px;
+    }
+    
+    .romantic-phrases {
+        transform: translateY(-20px);
+        padding: 0 15px;
+    }
+    
+    .final-message {
+        transform: scale(0.8) translateY(-5px);
+    }
+    
+    .final-message.show {
+        transform: scale(1) translateY(-5px);
+    }
+    
+    .initial-message h1 {
+        font-size: 2rem;
+    }
+    
+    .phrase {
+        font-size: 1rem;
+    }
+    
+    .final-message h2 {
+        font-size: 1.5rem;
+    }
+    
+    .flower {
+        width: min(60vw, 60vh, 300px);
+        height: min(60vw, 60vh, 300px);
+        min-width: 120px;
+        min-height: 120px;
+    }
+}
