@@ -21,14 +21,8 @@ let backgroundMusic;
 
 // Inicialización cuando se carga la página
 document.addEventListener('DOMContentLoaded', function() {
-    initializeAudio();
-    startFallingFlowers();
-    startFallingPetals();
-    
-    // Iniciar la secuencia después de que aparezca el mensaje inicial
-    setTimeout(() => {
-        startRomanticSequence();
-    }, 4000);
+    // Mostrar alert romántico primero
+    showRomanticAlert();
 });
 
 // Función para crear flores cayendo
@@ -189,43 +183,74 @@ function cleanup() {
     }
 }
 
+// Mostrar alert romántico
+function showRomanticAlert() {
+    const alertOverlay = document.createElement('div');
+    alertOverlay.id = 'romanticAlert';
+    alertOverlay.innerHTML = `
+        <div class="romantic-alert-content">
+            <div class="romantic-heart">💖</div>
+            <h2>¿Quién es mi Princesa?</h2>
+            <button class="romantic-btn" id="activateRomance">Yo ❤️</button>
+        </div>
+    `;
+    
+    document.body.appendChild(alertOverlay);
+    
+    // Agregar evento al botón
+    const btn = document.getElementById('activateRomance');
+    btn.addEventListener('click', activateRomanticExperience);
+}
+
+// Activar experiencia romántica completa
+function activateRomanticExperience() {
+    // Remover el alert
+    const alert = document.getElementById('romanticAlert');
+    if (alert) {
+        alert.style.opacity = '0';
+        alert.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+            if (alert.parentNode) {
+                alert.parentNode.removeChild(alert);
+            }
+        }, 300);
+    }
+    
+    // Inicializar audio y experiencia
+    initializeAudio();
+    startFallingFlowers();
+    startFallingPetals();
+    
+    // Iniciar la secuencia después de que aparezca el mensaje inicial
+    setTimeout(() => {
+        startRomanticSequence();
+    }, 4000);
+}
+
 // Inicializar audio para reproducción automática
 function initializeAudio() {
     backgroundMusic = document.getElementById('backgroundMusic');
     
     // Configurar volumen inicial
-    backgroundMusic.volume = 0.4; // Volumen suave para no interferir con la experiencia
+    backgroundMusic.volume = 0.4;
+    backgroundMusic.muted = false;
+    backgroundMusic.preload = 'auto';
     
-    // Forzar reproducción automática
-    backgroundMusic.play().catch(error => {
-        console.log('Autoplay fue bloqueado, intentando con interacción del usuario:', error);
-        
-        // Si el autoplay falla, activar con cualquier interacción del usuario
-        const enableAudio = () => {
-            backgroundMusic.play().then(() => {
-                console.log('Audio iniciado después de interacción del usuario');
-            }).catch(err => {
-                console.log('Error al reproducir audio:', err);
-            });
-            
-            // Remover los event listeners después de la primera interacción
-            document.removeEventListener('click', enableAudio);
-            document.removeEventListener('touchstart', enableAudio);
-            document.removeEventListener('keydown', enableAudio);
-        };
-        
-        // Escuchar cualquier interacción del usuario
-        document.addEventListener('click', enableAudio);
-        document.addEventListener('touchstart', enableAudio);
-        document.addEventListener('keydown', enableAudio);
+    // Reproducir música (ahora con interacción del usuario)
+    backgroundMusic.play().then(() => {
+        console.log('Música activada exitosamente');
+    }).catch(error => {
+        console.log('Error al reproducir música:', error);
     });
     
     // Asegurar que la música se reproduzca en bucle
     backgroundMusic.addEventListener('ended', () => {
         backgroundMusic.currentTime = 0;
-        backgroundMusic.play();
+        backgroundMusic.play().catch(() => {});
     });
 }
+
+// Funciones de activación invisible eliminadas - ahora usamos alert romántico
 
 // Crear pétalos amarillos cayendo
 function startFallingPetals() {
